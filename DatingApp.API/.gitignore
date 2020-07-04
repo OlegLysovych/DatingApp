@@ -4,3 +4,5 @@ obj
 *.db
 .sln
 launch.json
+.vscode
+appsettings.json
