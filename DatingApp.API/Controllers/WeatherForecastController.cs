@@ -29,7 +29,8 @@ namespace DatingApp.API.Controllers
             _logger = logger;
             _context = context;
         }
-
+        
+        [AllowAnonymous]
         [HttpGet]
         public async  Task<IActionResult> GetWeatherForecsts()
         {
@@ -37,6 +38,7 @@ namespace DatingApp.API.Controllers
 
             return Ok(weatherForecasts);
         }
+        
         [AllowAnonymous]
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetWeatherForecst(int id)

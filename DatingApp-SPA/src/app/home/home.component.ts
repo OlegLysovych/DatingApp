@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -7,13 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   registerMode = false;
+  weatherForecasts: any;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    this.getWeatherForecasts();
   }
 
   registerToggle() {
     this.registerMode = !this.registerMode;
+  }
+
+  getWeatherForecasts(){
+    this.http.get('http://localhost:5000/weatherforecast').subscribe(respone =>{
+      this.weatherForecasts = respone;
+    }, error => {
+      console.log(error);
+    });
   }
 }
