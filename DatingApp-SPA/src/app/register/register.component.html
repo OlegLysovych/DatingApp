@@ -7,13 +7,6 @@
   </div>
 
   <div class="form-group">
-    <label for="favourite-weatherForecast">What is your favourite weatherForecast?</label>
-    <select class="form-control" id="favourite-weatherForecast">
-      <option *ngFor="let value of weatherForecastsFromHome" [value]="value">{{value.summary}}</option>
-    </select>
-  </div>
-
-  <div class="form-group">
     <input type="password" class="form-control" required name="password" [(ngModel)]="model.password" placeholder="Password">
   </div>
 
