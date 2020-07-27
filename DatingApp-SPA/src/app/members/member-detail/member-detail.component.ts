@@ -28,7 +28,7 @@ export class MemberDetailComponent implements OnInit {
         previewCloseOnClick: true,
         previewCloseOnEsc: true,
         thumbnailsRemainingCount: true,
-        thumbnailsMargin: 0,
+        thumbnailsMargin: 0 ,
         width: '600px',
         height: '580px',
         imagePercent: 100,
