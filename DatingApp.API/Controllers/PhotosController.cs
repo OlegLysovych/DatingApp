@@ -15,7 +15,7 @@ using Microsoft.Extensions.Options;
 namespace DatingApp.API.Controllers
 {
     [Authorize]
-    [Route("users/{userid}/phots")]
+    [Route("/users/{userId}/photos")]
     [ApiController]
     public class PhotosController : ControllerBase
     {
@@ -39,8 +39,18 @@ namespace DatingApp.API.Controllers
             _cloudinary = new Cloudinary(acc);
         }
 
+        [HttpGet("{id}", Name = "GetPhoto")]
+        public async Task<IActionResult> GetPhoto(int id)
+        {
+            var photoFromRepo = await _repo.GetPhoto(id);
+
+            var photo = _mapper.Map<PhotoForReturnDto>(photoFromRepo);
+
+            return Ok(photo);
+        }
+
         [HttpPost]
-        public async Task<IActionResult> AddPhotoForUSer(int userId, PhotoForCreationDto PhotoForCreationDto) 
+        public async Task<IActionResult> AddPhotoForUSer(int userId, [FromForm]PhotoForCreationDto PhotoForCreationDto) 
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
@@ -64,7 +74,7 @@ namespace DatingApp.API.Controllers
                     uploadResult = _cloudinary.Upload(uploadParams);
                 }
             }
-            PhotoForCreationDto.Url = uploadResult.Uri.ToString();
+            PhotoForCreationDto.Url = uploadResult.Url.ToString();
             PhotoForCreationDto.PublicId = uploadResult.PublicId;
 
             var photo = _mapper.Map<Photo>(PhotoForCreationDto);
@@ -74,10 +84,11 @@ namespace DatingApp.API.Controllers
 
             if(await _repo.SaveAll())
             {
-                return Ok();
+                var photoToReturn = _mapper.Map<PhotoForReturnDto>(photo);
+                return CreatedAtRoute("GetPhoto", new {userId, id = photo.Id}, photoToReturn);
             }
 
-            return BadRequest("coud not add the photo");
+            return BadRequest("Coud not add the photo");
         }
     }
 }
