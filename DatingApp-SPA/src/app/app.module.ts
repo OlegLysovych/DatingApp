@@ -22,6 +22,7 @@ import { RouterModule } from '@angular/router';
 import { UserService } from './_services/user.service';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { AlertifyService } from './_services/alertify.service';
 import { AuthGuard } from './_guards/auth.guard';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
@@ -47,6 +48,7 @@ export function tokenGetter(): string{
       MemberCardComponent,
       MemberDetailComponent,
       MemberEditComponent,
+      PhotoEditorComponent,
    ],
    imports: [
       BrowserModule,
