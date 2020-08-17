@@ -26,7 +26,7 @@ namespace DatingApp.API.Controllers
 
         }
 
-        [HttpGet("{id", Name="GetMessage")]
+        [HttpGet("{id}", Name="GetMessage")]
         public async Task<IActionResult> GetMessage(int userId, int id)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
