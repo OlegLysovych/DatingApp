@@ -12,6 +12,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { NgxGalleryModule } from 'ngx-gallery-9';
 import { FileUploadModule } from 'ng2-file-upload';
 import {TimeAgoPipe} from 'time-ago-pipe';
+import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -79,6 +80,7 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe implements PipeTransform {}
       PaginationModule.forRoot(),
       ButtonsModule.forRoot(),
       NgxGalleryModule,
+      CommonModule,
       FileUploadModule,
       JwtModule.forRoot({
          config: {
