@@ -36,6 +36,7 @@ import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { ListsResolver } from './_resolvers/lists.resolver';
+import { MessagesResolver } from './_resolvers/messages.resolver';
 
 
 export function tokenGetter(): string{
@@ -96,7 +97,8 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe implements PipeTransform {}
       MemberListResolver,
       MemberEditResolver,
       ListsResolver,
-      PreventUnsavedChanges
+      PreventUnsavedChanges,
+      MessagesResolver
    ],
    bootstrap: [
       AppComponent
