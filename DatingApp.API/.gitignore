@@ -6,3 +6,4 @@ obj
 launch.json
 .vscode
 appsettings.json
+wwwroot
