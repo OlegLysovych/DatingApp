@@ -33,10 +33,22 @@ namespace DatingApp.API
 
         public IConfiguration Configuration { get; }
 
+        public void CoinfigureDevelopmentServices(IServiceCollection services)
+        {
+             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))); //this configuration sets at appsettings.json and calls every time when we call a class
+
+             ConfigureServices(services);
+        }
+        public void CoinfigureProductionServices(IServiceCollection services)
+        {
+             services.AddDbContext<DataContext>(x => x.UseMySql(Configuration.GetConnectionString("DefaultConnection"))); //this configuration sets at appsettings.json and calls every time when we call a class
+
+             ConfigureServices(services);
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))); //this configuration sets at appsettings.json and calls every time when we call a class
             services.AddControllers()
                 .AddNewtonsoftJson(opt => {
                     opt.SerializerSettings.ReferenceLoopHandling = 
