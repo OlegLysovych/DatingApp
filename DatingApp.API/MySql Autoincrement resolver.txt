@@ -1,0 +1,14 @@
+LOCK TABLES users write, messages write, likes write, photos write;
+ALTER TABLE messages DROP FOREIGN KEY FK_Messages_Users_RecipientId, MODIFY RecipientId Int Not Null;
+ALTER TABLE messages DROP FOREIGN KEY FK_Messages_Users_SenderId, MODIFY SenderId Int Not Null;
+ALTER TABLE likes DROP FOREIGN KEY FK_Likes_Users_LikeeId, MODIFY LikeeId Int Not Null;
+ALTER TABLE likes DROP FOREIGN KEY FK_Likes_Users_LikerId, MODIFY LikerId Int Not Null;
+ALTER TABLE photos DROP FOREIGN KEY FK_Photos_Users_UserId, MODIFY UserId Int Not Null;
+ALTER TABLE users MODIFY Id INT NOT NULL AUTO_INCREMENT;
+ALTER TABLE messages MODIFY Id INT NOT NULL AUTO_INCREMENT;
+ALTER TABLE photos MODIFY Id INT NOT NULL AUTO_INCREMENT;
+ALTER TABLE messages ADD CONSTRAINT FK_Messages_Users_RecipientId FOREIGN KEY (RecipientId) REFERENCES users(Id);
+ALTER TABLE messages ADD CONSTRAINT FK_Messages_Users_SenderId FOREIGN KEY (SenderId) REFERENCES users(Id);
+ALTER TABLE likes ADD CONSTRAINT FK_Likes_Users_LikeeId FOREIGN KEY (LikeeId) REFERENCES users(Id);
+ALTER TABLE likes ADD CONSTRAINT FK_Likes_Users_LikerId FOREIGN KEY (LikerId) REFERENCES users(Id);
+ALTER TABLE photos ADD CONSTRAINT FK_Photos_Users_UserId FOREIGN KEY (UserId) REFERENCES users(Id);

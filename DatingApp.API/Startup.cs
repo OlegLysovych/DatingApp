@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,15 +34,22 @@ namespace DatingApp.API
 
         public IConfiguration Configuration { get; }
 
-        public void CoinfigureDevelopmentServices(IServiceCollection services)
+        public void ConfigureDevelopmentServices(IServiceCollection services)
         {
-             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))); //this configuration sets at appsettings.json and calls every time when we call a class
-
+            services.AddDbContext<DataContext>(x => 
+            {
+                x.UseLazyLoadingProxies();
+                x.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+            });
              ConfigureServices(services);
         }
-        public void CoinfigureProductionServices(IServiceCollection services)
+        public void ConfigureProductionServices(IServiceCollection services)
         {
-             services.AddDbContext<DataContext>(x => x.UseMySql(Configuration.GetConnectionString("DefaultConnection"))); //this configuration sets at appsettings.json and calls every time when we call a class
+             services.AddDbContext<DataContext>(x => {
+                x.UseLazyLoadingProxies();
+                x.UseMySql(Configuration.GetConnectionString("DefaultConnection"));
+            }); //this configuration sets at appsettings.json and calls every time when we call a class
+            //  services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))); //this configuration sets at appsettings.json and calls every time when we call a class
 
              ConfigureServices(services);
         }
@@ -97,9 +105,9 @@ namespace DatingApp.API
 
             app.UseRouting();
 
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseEndpoints(endpoints =>

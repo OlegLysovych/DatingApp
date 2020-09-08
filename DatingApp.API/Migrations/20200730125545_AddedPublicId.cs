@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DatingApp.API.Migrations
@@ -26,11 +27,11 @@ namespace DatingApp.API.Migrations
                 name: "WeatherForecasts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Summary = table.Column<string>(type: "TEXT", nullable: true),
-                    TemperatureC = table.Column<int>(type: "INTEGER", nullable: false)
+                    Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Summary = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    TemperatureC = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
