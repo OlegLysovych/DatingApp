@@ -64,7 +64,7 @@ namespace DatingApp.API.Controllers
              if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
             
-            var messagesFromRepo = await _repo.GetMesssageThread(userId, recipientId);
+            // var messagesFromRepo = await _repo.GetMesssageThread(userId, recipientId);
 
             var messageThread = _mapper.Map<IEnumerable<MessageToReturnDto>>(messagesFromRepo);
             
